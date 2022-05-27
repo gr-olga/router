@@ -6,8 +6,6 @@ import Search from "./search";
 export default function PokemonDiscoveryPage() {
     const [search, setSearch] = useState('')
     const [data, setData] = useState([])
-    // const [pok, setPok] = useState(data)
-
 
     useEffect(() => {
         const fetchPoke = async () => {
@@ -36,7 +34,7 @@ export default function PokemonDiscoveryPage() {
         <div>
             <Search search={search} setSearch={updateFilter}/>
             {data ? (
-                data.filter((item) => item.name
+                data.filter((item) => item.name.toLocaleLowerCase()
                     .startsWith(search))
                     .map((item, i) => <Pokemon key={i} name={item.name}/>)
             ) : (
