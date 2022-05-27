@@ -1,0 +1,33 @@
+import {useParams} from "react-router-dom";
+import {useEffect, useState} from "react";
+import axios from "axios";
+
+export default function PokemonPage() {
+     const routeParams = useParams();
+    const [pokemon, setPokemon] = useState(null);
+
+    useEffect( () => {
+        async function getPokemonDetails() {
+            try {
+                const res = await axios.get(
+                     `https://pokeapi.co/api/v2/pokemon/${routeParams.name}`
+                );
+                setPokemon(res.data);
+            } catch (err) {
+                console.log(err.message)
+            }
+        }
+        getPokemonDetails();
+    }, []);
+
+    return pokemon ? (
+        <div>
+            <h2>{pokemon.name}</h2>
+            <img src={pokemon.sprites.front_default}/>
+            <p>Types: {pokemon.types.map((typeObj) => <span>{typeObj.type.name} </span>)}</p>
+            <p>Weight: {pokemon.weight} hectograms</p>
+        </div>
+    ) : (
+        <p>Loading ...</p>
+    );
+}

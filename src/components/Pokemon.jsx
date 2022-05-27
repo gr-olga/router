@@ -1,12 +1,10 @@
 import {Link} from "react-router-dom";
 
-export default function Pokemon({name, url}){
-    return(
+export default function Pokemon({name, image}) {
+    return (
         <div>
-            <Link path ='/details/:pokemon-name'>
-        <h1>{name}</h1>
-            </Link>
-        <image href={url}/>
+            <h1>{name}</h1>
+            <Link to={`/details/${name}`}> Details</Link>
         </div>
     )
 }
